@@ -16,14 +16,19 @@
         body {
             background-color: #f8f9fa;
             color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
         
         .container {
+            width: 100%;
             max-width: 480px;
-            margin: 0 auto;
             background: white;
-            min-height: 100vh;
+            height: 100vh;
             position: relative;
+            overflow: hidden;
             box-shadow: 0 0 15px rgba(0,0,0,0.1);
         }
         
@@ -68,6 +73,7 @@
             align-items: center;
             font-size: 0.8rem;
             color: #666;
+            cursor: pointer;
         }
         
         .nav-item.active {
@@ -82,7 +88,14 @@
         /* Content Sections */
         .content-section {
             padding: 15px;
-            margin-bottom: 60px;
+            padding-bottom: 70px;
+            overflow-y: auto;
+            height: calc(100vh - 60px);
+            display: none;
+        }
+        
+        .content-section.active {
+            display: block;
         }
         
         .section-title {
@@ -97,12 +110,14 @@
             overflow-x: auto;
             padding: 10px 0;
             gap: 15px;
+            margin-bottom: 20px;
         }
         
         .story {
             display: flex;
             flex-direction: column;
             align-items: center;
+            cursor: pointer;
         }
         
         .story-avatar {
@@ -112,14 +127,22 @@
             background: linear-gradient(to right, #ff9966, #ff5e62);
             padding: 2px;
             margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        .story-avatar img {
+        .story-avatar-inner {
             width: 100%;
             height: 100%;
             border-radius: 50%;
             border: 2px solid white;
-            object-fit: cover;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8e2de2;
+            font-weight: bold;
         }
         
         .story-username {
@@ -187,6 +210,11 @@
             border-radius: 50%;
             margin-right: 10px;
             background: #8e2de2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
         }
         
         .reel-username {
@@ -201,6 +229,7 @@
             justify-content: center;
             color: white;
             font-size: 1.5rem;
+            position: relative;
         }
         
         .reel-actions {
@@ -215,6 +244,12 @@
             flex-direction: column;
             align-items: center;
             color: #666;
+            cursor: pointer;
+        }
+        
+        .action-btn i {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
         }
         
         /* Wallet Section */
@@ -294,6 +329,7 @@
             background: #f8f9fa;
             border-radius: 10px;
             text-align: center;
+            cursor: pointer;
         }
         
         .panel-icon {
@@ -380,13 +416,106 @@
             font-weight: 600;
         }
         
-        /* Hidden sections */
-        .section {
-            display: none;
+        /* Video Editor */
+        .editor-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
         }
         
-        .section.active {
-            display: block;
+        .editor-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .editor-icon {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #8e2de2;
+        }
+        
+        .next-button {
+            background: linear-gradient(to right, #4a00e0, #8e2de2);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            width: 100%;
+            font-weight: bold;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        
+        /* Chat Interface */
+        .chat-container {
+            padding: 15px;
+        }
+        
+        .chat-message {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .message {
+            padding: 10px 15px;
+            border-radius: 18px;
+            max-width: 80%;
+            margin-bottom: 5px;
+        }
+        
+        .received {
+            background: #f0f0f0;
+            align-self: flex-start;
+        }
+        
+        .sent {
+            background: #8e2de2;
+            color: white;
+            align-self: flex-end;
+        }
+        
+        .message-time {
+            font-size: 0.7rem;
+            color: #999;
+            align-self: flex-end;
+            margin-top: -3px;
+        }
+        
+        .message-input {
+            display: flex;
+            padding: 10px;
+            background: white;
+            position: fixed;
+            bottom: 60px;
+            width: 100%;
+            max-width: 480px;
+        }
+        
+        .message-input input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+        }
+        
+        .send-button {
+            background: #8e2de2;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-left: 10px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -399,13 +528,13 @@
             <div class="upload-icon"><i class="fas fa-plus"></i></div>
         </div>
         
-        <!-- Main Content -->
+        <!-- Home Section -->
         <div class="content-section active" id="home-section">
             <!-- Stories -->
             <div class="stories-container">
                 <div class="story">
                     <div class="story-avatar">
-                        <div style="width: 100%; height: 100%; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #8e2de2;">
+                        <div class="story-avatar-inner">
                             <i class="fas fa-plus"></i>
                         </div>
                     </div>
@@ -413,19 +542,19 @@
                 </div>
                 <div class="story">
                     <div class="story-avatar">
-                        <div style="width: 100%; height: 100%; background: #ff9966; border-radius: 50%;"></div>
+                        <div class="story-avatar-inner" style="background: #ff9966;"></div>
                     </div>
                     <div class="story-username">Alice</div>
                 </div>
                 <div class="story">
                     <div class="story-avatar">
-                        <div style="width: 100%; height: 100%; background: #4a00e0; border-radius: 50%;"></div>
+                        <div class="story-avatar-inner" style="background: #4a00e0;"></div>
                     </div>
                     <div class="story-username">John</div>
                 </div>
                 <div class="story">
                     <div class="story-avatar">
-                        <div style="width: 100%; height: 100%; background: #8e2de2; border-radius: 50%;"></div>
+                        <div class="story-avatar-inner" style="background: #8e2de2;"></div>
                     </div>
                     <div class="story-username">Emma</div>
                 </div>
@@ -434,7 +563,7 @@
             <!-- Reel -->
             <div class="reel-item">
                 <div class="reel-header">
-                    <div class="reel-user-avatar"></div>
+                    <div class="reel-user-avatar">H</div>
                     <div class="reel-username">hans_creator</div>
                 </div>
                 <div class="reel-video">
@@ -614,6 +743,77 @@
             </div>
         </div>
         
+        <!-- Video Editor Section -->
+        <div class="content-section" id="editor-section">
+            <div class="section-title">Edit Your Reel</div>
+            
+            <div class="editor-options">
+                <div class="editor-option">
+                    <div class="editor-icon"><i class="fas fa-cut"></i></div>
+                    <div>Trim</div>
+                </div>
+                <div class="editor-option">
+                    <div class="editor-icon"><i class="fas fa-music"></i></div>
+                    <div>Add Music</div>
+                </div>
+                <div class="editor-option">
+                    <div class="editor-icon"><i class="fas fa-font"></i></div>
+                    <div>Text Overlay</div>
+                </div>
+                <div class="editor-option">
+                    <div class="editor-icon"><i class="fas fa-magic"></i></div>
+                    <div>Filters</div>
+                </div>
+                <div class="editor-option">
+                    <div class="editor-icon"><i class="fas fa-sticky-note"></i></div>
+                    <div>Stickers</div>
+                </div>
+                <div class="editor-option">
+                    <div class="editor-icon"><i class="fas fa-sliders-h"></i></div>
+                    <div>Adjust</div>
+                </div>
+            </div>
+            
+            <button class="next-button">Next</button>
+        </div>
+        
+        <!-- Chat Section -->
+        <div class="content-section" id="chat-section">
+            <div class="section-title">Jasmin</div>
+            
+            <div class="chat-container">
+                <div class="chat-message">
+                    <div class="message received">Hey! How's it going? 😊</div>
+                    <div class="message-time">9:41 AM</div>
+                </div>
+                
+                <div class="chat-message">
+                    <div class="message sent">Good, you?</div>
+                    <div class="message-time">9:41 AM</div>
+                </div>
+                
+                <div class="chat-message">
+                    <div class="message received">Great! Just finished work</div>
+                    <div class="message-time">9:42 AM</div>
+                </div>
+                
+                <div class="chat-message">
+                    <div class="message sent">Nice! Wanna catch up later?</div>
+                    <div class="message-time">9:42 AM</div>
+                </div>
+                
+                <div class="chat-message">
+                    <div class="message received">Sure!</div>
+                    <div class="message-time">9:42 AM</div>
+                </div>
+            </div>
+            
+            <div class="message-input">
+                <input type="text" placeholder="Type a message...">
+                <button class="send-button"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+        
         <!-- Bottom Navigation -->
         <div class="bottom-nav">
             <div class="nav-item active" onclick="showSection('home-section')">
@@ -627,6 +827,10 @@
             <div class="nav-item" onclick="showSection('creator-section')">
                 <div class="nav-icon"><i class="fas fa-user-plus"></i></div>
                 <div>Creator</div>
+            </div>
+            <div class="nav-item" onclick="showSection('chat-section')">
+                <div class="nav-icon"><i class="fas fa-comment"></i></div>
+                <div>Chat</div>
             </div>
             <div class="nav-item" onclick="showSection('profile-section')">
                 <div class="nav-icon"><i class="fas fa-user"></i></div>
@@ -659,6 +863,21 @@
                 }
             }
         }
+        
+        // Add click event to stories
+        document.querySelectorAll('.story').forEach(story => {
+            story.addEventListener('click', function() {
+                alert('Showing ' + this.querySelector('.story-username').textContent + "'s story");
+            });
+        });
+        
+        // Add click event to action buttons
+        document.querySelectorAll('.action-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const action = this.querySelector('span').textContent;
+                alert('You ' + action + 'd this reel!');
+            });
+        });
     </script>
 </body>
 </html>
