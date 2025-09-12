@@ -14,36 +14,62 @@
         }
         
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
             color: #333;
             min-height: 100vh;
             padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         
         .container {
+            width: 95%;
             max-width: 1200px;
-            margin: 0 auto;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             overflow: hidden;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         header {
-            background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+            background: linear-gradient(90deg, #1a2a6c, #b21f1f);
             color: white;
             padding: 30px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.1"><circle cx="50" cy="50" r="40" stroke="white" stroke-width="10" fill="none" /></svg>');
+            background-size: 200px;
+            opacity: 0.1;
         }
         
         h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
         
         .tagline {
             font-size: 1.2rem;
             opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
         }
         
         .main-content {
@@ -61,26 +87,35 @@
         }
         
         .upload-box {
-            border: 3px dashed #4b6cb7;
+            border: 3px dashed #1a2a6c;
             border-radius: 12px;
             padding: 40px 20px;
             margin: 20px 0;
             cursor: pointer;
             transition: all 0.3s;
+            background: #f8f9fa;
         }
         
         .upload-box:hover {
-            background-color: #f0f4ff;
+            background-color: #e9ecef;
+            transform: scale(1.02);
         }
         
         .upload-icon {
             font-size: 60px;
-            color: #4b6cb7;
+            color: #1a2a6c;
             margin-bottom: 15px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
         
         .btn {
-            background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+            background: linear-gradient(90deg, #1a2a6c, #b21f1f);
             color: white;
             border: none;
             padding: 12px 30px;
@@ -89,16 +124,19 @@
             cursor: pointer;
             transition: all 0.3s;
             margin: 10px 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         
         .btn:disabled {
             background: #cccccc;
             cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
         
         .btn:hover:not(:disabled) {
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
         }
         
         .image-preview {
@@ -107,39 +145,51 @@
             flex-wrap: wrap;
             margin: 30px 0;
             width: 100%;
+            gap: 20px;
         }
         
         .preview-card {
-            width: 45%;
+            flex: 1;
             min-width: 300px;
-            margin: 15px;
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .preview-card:hover {
+            transform: translateY(-5px);
         }
         
         .preview-header {
-            background: #4b6cb7;
+            background: #1a2a6c;
             color: white;
-            padding: 10px;
+            padding: 15px;
             text-align: center;
+            font-weight: bold;
         }
         
         .preview-image {
             width: 100%;
-            height: 250px;
-            background-color: #f5f5f5;
+            height: 300px;
+            background: linear-gradient(45deg, #f5f7fa, #c3cfe2);
             display: flex;
             align-items: center;
             justify-content: center;
             color: #888;
             overflow: hidden;
+            position: relative;
         }
         
         .preview-image img {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
+            transition: transform 0.5s;
+        }
+        
+        .preview-image img:hover {
+            transform: scale(1.05);
         }
         
         .features {
@@ -147,21 +197,29 @@
             flex-wrap: wrap;
             justify-content: center;
             margin: 30px 0;
+            gap: 20px;
         }
         
         .feature {
-            width: 250px;
-            padding: 20px;
-            margin: 15px;
+            flex: 1;
+            min-width: 250px;
+            padding: 25px;
             text-align: center;
             border-radius: 10px;
-            background: #f9f9f9;
+            background: #f8f9fa;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+            background: white;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
         
         .feature-icon {
             font-size: 40px;
-            color: #4b6cb7;
+            color: #1a2a6c;
             margin-bottom: 15px;
         }
         
@@ -170,34 +228,61 @@
             max-width: 600px;
             margin: 20px 0;
             display: none;
+            animation: slideIn 0.5s ease;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .progress-bar {
             height: 20px;
-            background: #e0e0e0;
+            background: #e9ecef;
             border-radius: 10px;
             overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
         }
         
         .progress {
             height: 100%;
-            background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+            background: linear-gradient(90deg, #1a2a6c, #b21f1f);
             width: 0%;
-            transition: width 0.3s;
+            transition: width 0.5s ease;
+            border-radius: 10px;
         }
         
         .progress-text {
             text-align: center;
             margin-top: 10px;
             font-weight: bold;
+            color: #1a2a6c;
+        }
+        
+        .tensorflow-info {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
         }
         
         footer {
-            background: #182848;
+            background: #1a2a6c;
             color: white;
             text-align: center;
             padding: 20px;
             margin-top: 30px;
+        }
+        
+        .github-link {
+            color: #fdbb2d;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .github-link:hover {
+            text-decoration: underline;
         }
         
         @media (max-width: 768px) {
@@ -208,6 +293,26 @@
             h1 {
                 font-size: 2rem;
             }
+            
+            .feature {
+                min-width: 100%;
+            }
+        }
+        
+        .loading-spinner {
+            display: none;
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #1a2a6c;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -224,7 +329,7 @@
                 <div class="upload-box" id="dropZone">
                     <div class="upload-icon">📁</div>
                     <p>यहां क्लिक करें या छवि खींचकर छोड़ें</p>
-                    <p><small>JPEG, PNG, JPG फॉर्मेट स्वीकार्य</small></p>
+                    <p><small>JPEG, PNG, JPG फॉर्मेट स्वीकार्य (अधिकतम आकार: 5MB)</small></p>
                 </div>
                 <input type="file" id="fileInput" accept="image/*" hidden>
                 <button class="btn" id="uploadBtn">तस्वीर चुनें</button>
@@ -236,6 +341,7 @@
                     <div class="progress" id="progressBar"></div>
                 </div>
                 <div class="progress-text" id="progressText">0%</div>
+                <div class="loading-spinner" id="loadingSpinner"></div>
             </div>
             
             <div class="image-preview">
@@ -252,6 +358,11 @@
                         <p>एन्हांस्ड तस्वीर यहां दिखाई देगी</p>
                     </div>
                 </div>
+            </div>
+            
+            <div class="tensorflow-info">
+                <h3>TensorFlow.js AI तकनीक</h3>
+                <p>यह वेबसाइट TensorFlow.js लाइब्रेरी का उपयोग करती है जो ब्राउज़र में ही AI मॉडल चलाने की सुविधा प्रदान करती है। आपकी तस्वीरें कहीं अपलोड नहीं होतीं, सब कुछ आपके डिवाइस पर प्रोसेस होता है।</p>
             </div>
             
             <h2>TensorFlow.js की विशेषताएं</h2>
@@ -277,7 +388,7 @@
         </div>
         
         <footer>
-            <p>© 2023 TensorFlow.js फोटो एन्हांसर | GitHub पर होस्टेड</p>
+            <p>© 2023 TensorFlow.js फोटो एन्हांसर | <a href="https://github.com" class="github-link">GitHub</a> पर होस्टेड</p>
         </footer>
     </div>
 
@@ -292,8 +403,10 @@
             const progressContainer = document.getElementById('progressContainer');
             const progressBar = document.getElementById('progressBar');
             const progressText = document.getElementById('progressText');
+            const loadingSpinner = document.getElementById('loadingSpinner');
             
             let originalImage = null;
+            let originalImageDataUrl = '';
             
             // Upload button click event
             uploadBtn.addEventListener('click', function() {
@@ -311,19 +424,27 @@
             dropZone.addEventListener('dragover', function(e) {
                 e.preventDefault();
                 dropZone.style.backgroundColor = '#e6eeff';
+                dropZone.style.borderColor = '#1a2a6c';
             });
             
             dropZone.addEventListener('dragleave', function() {
-                dropZone.style.backgroundColor = '';
+                dropZone.style.backgroundColor = '#f8f9fa';
+                dropZone.style.borderColor = '#1a2a6c';
             });
             
             dropZone.addEventListener('drop', function(e) {
                 e.preventDefault();
-                dropZone.style.backgroundColor = '';
+                dropZone.style.backgroundColor = '#f8f9fa';
+                dropZone.style.borderColor = '#1a2a6c';
                 
                 if (e.dataTransfer.files.length) {
                     handleImageUpload(e.dataTransfer.files[0]);
                 }
+            });
+            
+            // Click on drop zone
+            dropZone.addEventListener('click', function() {
+                fileInput.click();
             });
             
             // Enhance button click event
@@ -332,6 +453,7 @@
                 
                 enhanceBtn.disabled = true;
                 progressContainer.style.display = 'block';
+                loadingSpinner.style.display = 'block';
                 enhancedPreview.innerHTML = '<p>तस्वीर प्रोसेस हो रही है...</p>';
                 
                 // Simulate progress
@@ -347,15 +469,24 @@
                     return;
                 }
                 
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('फाइल का आकार 5MB से कम होना चाहिए!');
+                    return;
+                }
+                
                 const reader = new FileReader();
                 
                 reader.onload = function(e) {
+                    originalImageDataUrl = e.target.result;
                     originalImage = new Image();
                     originalImage.onload = function() {
                         originalPreview.innerHTML = `
                             <img src="${e.target.result}" alt="मूल तस्वीर">
                         `;
                         enhanceBtn.disabled = false;
+                        
+                        // Reset enhanced preview
+                        enhancedPreview.innerHTML = '<p>एन्हांस्ड तस्वीर यहां दिखाई देगी</p>';
                     };
                     originalImage.src = e.target.result;
                 };
@@ -439,14 +570,17 @@
                         // Complete progress
                         progressBar.style.width = '100%';
                         progressText.textContent = "पूर्ण!";
+                        loadingSpinner.style.display = 'none';
                         
-                        // Enable enhance button again
+                        // Enable enhance 
+                        button again
                         enhanceBtn.disabled = false;
                         
                         // Add download button
                         const downloadBtn = document.createElement('button');
                         downloadBtn.textContent = 'एन्हांस्ड तस्वीर डाउनलोड करें';
                         downloadBtn.className = 'btn';
+                        downloadBtn.style.marginTop = '15px';
                         downloadBtn.addEventListener('click', function() {
                             const link = document.createElement('a');
                             link.download = 'enhanced-image.png';
@@ -471,6 +605,7 @@
                     console.error('Error enhancing image:', error);
                     enhancedPreview.innerHTML = '<p>त्रुटि: छवि संवर्द्धन विफल</p>';
                     progressText.textContent = "त्रुटि हुई!";
+                    loadingSpinner.style.display = 'none';
                     enhanceBtn.disabled = false;
                 }
             }
